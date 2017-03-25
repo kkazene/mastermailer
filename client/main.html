@@ -1,0 +1,43 @@
+<head>
+  <title>Mastermailer</title>
+</head>
+
+<body>
+  <h1>Mastermailer</h1>
+
+  {{> addContact}}
+  {{> contactTable}}
+</body>
+
+<template name="addContact">
+  <div class="container">
+    <header>
+      <h1>Add contact</h1>
+
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="fname" class="form-control" placeholder="First name" />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lname" class="form-control" placeholder="Last name" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" class="form-control" placeholder="Email" />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone number</label>
+          <input type="text" id="phone" class="form-control" placeholder="Phone number" />
+        </div>
+        <button id="addCntct">Add contact</button>
+      </div>
+    </header>
+  </div>
+</template>
+
+<template name="contactTable">
+  <h2>Contact list</h2>
+    {{> reactiveTable collection=contacts settings=tableSettings}}
+</template>
