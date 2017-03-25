@@ -7,11 +7,11 @@ import './methods.js';
 export const Contacts = new Mongo.Collection('contacts');
 
 Contacts.contactSchema = new SimpleSchema({
-  /*userId: {
+  userId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
-  },*/
-  /*createdAt: {
+  },
+  /* createdAt: {
     type: Date,
     autovalue: function autoValue() {
       if (this.isInsert) {
@@ -20,7 +20,7 @@ Contacts.contactSchema = new SimpleSchema({
       this.unset();
       return undefined;
     },
-  },*/
+  }, */
   firstName: {
     type: String,
   },

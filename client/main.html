@@ -5,14 +5,18 @@
 <body>
   <h1>Mastermailer</h1>
 
-  {{> addContact}}
-  {{> contactTable}}
+  {{> loginButtons}}
+  {{#if currentUser}}
+    {{> addContact}}
+    {{> contactTable}}
+    {{> sendMessage}}
+  {{/if}}
 </body>
 
 <template name="addContact">
   <div class="container">
     <header>
-      <h1>Add contact</h1>
+      <h2>Add contact</h2>
 
       <div class="form-horizontal">
         <div class="form-group">
@@ -38,6 +42,20 @@
 </template>
 
 <template name="contactTable">
-  <h2>Contact list</h2>
+  <h1>Contact list</h1>
     {{> reactiveTable collection=contacts settings=tableSettings}}
+</template>
+
+<template name="sendMessage">
+  <h2>Send message</h2>
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="recipients">Recipients</label>
+        <input type="text" id="recipients" class="form-control" placeholder="Recipient"/>
+      </div>
+      <div class="form-group">
+        <input type="textarea" id="message" class="form-control" placeholder="Write your message here..."/>
+      </div>
+      <button id="sendMsg">Send message</button>
+    </div>
 </template>

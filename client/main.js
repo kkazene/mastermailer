@@ -32,6 +32,10 @@ Template.addContact.events({
   }
 });
 
+Template.contactTable.onCreated(function () {
+  Meteor.subscribe('Contacts.own');
+});
+
 Template.contactTable.helpers({
   contacts() {
     return Contacts.find();

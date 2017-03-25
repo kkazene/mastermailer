@@ -5,7 +5,6 @@ import { check, Match } from 'meteor/check';
 Meteor.methods({
   'Contacts.insert'(cntct) {
     check(cntct, {
-      //userId: String,
       firstName: String,
       lastName: String,
       email: String,
@@ -13,10 +12,9 @@ Meteor.methods({
     });
     if (cntct) {
       const id = Contacts.insert({
-        //userId: cntct.userId,
+        userId: Meteor.userId(),
         firstName: cntct.firstName,
         lastName: cntct.lastName,
-        //createdAt: new Date(),
         email: cntct.email,
         phone: cntct.phone,
         sentMessages: [],
