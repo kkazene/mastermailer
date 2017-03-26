@@ -81,5 +81,16 @@ Template.contactTable.events({
       }
       Session.set('checkedContacts', cntctArr);
     }
+  },
+  'click .reactive-table th': function (event) {
+    console.log(event);
+    console.log(event.target);
+    console.log(this);
   }
 });
+
+Template.sendMessage.helpers({
+  showRecipients() {
+    return Contacts.find({ _id: { $in: Session.get('checkedContacts') }}).map(cntct => cntct.email);
+  }
+})
