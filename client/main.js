@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Contacts } from '../imports/api/contacts/contacts.js';
+import { Session } from 'meteor/session';
 import 'meteor/chrismbeckett:toastr'; /* global toastr */
 
 import './main.html';
@@ -34,6 +35,7 @@ Template.addContact.events({
 
 Template.contactTable.onCreated(function () {
   Meteor.subscribe('Contacts.own');
+  Session.set('checkedContacts', []);
 });
 
 Template.contactTable.helpers({
@@ -43,6 +45,16 @@ Template.contactTable.helpers({
 
   tableSettings() {
     const fields = [
+      {
+        fieldId: 'checked',
+        key: 'checked',
+        label() {
+          return new Spacebars.SafeString("<input type='checkbox' />");
+        },
+        fn(value, object) {
+          return new Spacebars.SafeString("<input type='checkbox' />");
+        }
+      },
       { fieldId: 'lastName', key: 'lastName', label: 'Last name', sortByValue: true },
       { fieldId: 'firstName', key: 'firstName', label: 'First name' },
       { fieldId: 'email', key: 'email', label: 'Email' },
@@ -53,5 +65,21 @@ Template.contactTable.helpers({
       rowsPerPage: 50,
       fields,
     };
+  }
+});
+
+Template.contactTable.events({
+  'click .reactive-table tbody tr': function (event) {
+    // event.preventDefault();
+    const row = this;
+    let cntctArr = Session.get('checkedContacts');
+    if (event && event.target.type === 'checkbox') {
+      if (event.target.checked) {
+        cntctArr.push(row._id);
+      } else {
+        cntctArr.splice(cntctArr.indexOf(row._id), 1);
+      }
+      Session.set('checkedContacts', cntctArr);
+    }
   }
 });
